@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/kfokam48;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+  flyway:
+    locations: classpath:db/migration
+  jackson:
+    default-property-inclusion: non_null
+server:
+  port: 8080
+  error:
+    include-message: never
+cors:
+  frontend-url: http://localhost:3000
