@@ -63,3 +63,44 @@ export function ouvrirSession(
 export function consulterTableau(promotionId: number): Promise<LigneTableau[]> {
   return appelerApi<LigneTableau[]>(`/api/tableau?promotionId=${promotionId}`);
 }
+
+export interface MarquerPresenceRequest {
+  code: string;
+  etudiantId: number;
+}
+
+export interface PresenceResponse {
+  id: number;
+  sessionId: number;
+  etudiantId: number;
+  source: string;
+}
+
+export interface DeposerExerciceRequest {
+  sessionId: number;
+  etudiantId: number;
+  lien: string;
+}
+
+export interface DepotExerciceResponse {
+  id: number;
+  statut: string;
+}
+
+export function marquerPresence(
+  request: MarquerPresenceRequest
+): Promise<PresenceResponse> {
+  return appelerApi<PresenceResponse>("/api/presences", {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
+}
+
+export function deposerExercice(
+  request: DeposerExerciceRequest
+): Promise<DepotExerciceResponse> {
+  return appelerApi<DepotExerciceResponse>("/api/exercices", {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
+}
