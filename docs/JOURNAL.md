@@ -37,3 +37,13 @@ IA : l'IA a proposé les services, contrôleurs et tests ; j'ai vérifié chaque
 réponse contre `api/contrat.yaml`, notamment les statuts `200`, `400`, `403`,
 `409` et la note entière entre 0 et 20. Le journal est mis à jour dans cette
 branche avant son commit.
+
+## Ticket #7 — Consultation de la note
+
+Fait : ajout de `GET /api/exercices/{id}/note`, qui expose uniquement la note
+et le commentaire après relecture, sans exposer l'identité du relecteur.
+Le wrapper Maven officiel est maintenant disponible et `./mvnw clean test`
+est passé avec succès après installation de Maven.
+Bloqué : aucun blocage technique restant sur le backend pour ce ticket.
+IA : l'implémentation est vérifiée contre le contrat d'API et par un test
+d'intégration ciblé.

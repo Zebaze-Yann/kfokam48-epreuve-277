@@ -265,6 +265,27 @@ paths:
         "404": { $ref: "#/components/responses/Erreur" } # EXERCICE_INCONNU
         "409": { $ref: "#/components/responses/Erreur" } # RELECTURE_DEJA_COMMENCEE
 
+  /api/exercices/{id}/note:
+    get:
+      summary: L'étudiant consulte la note et le commentaire de son exercice
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: Note et commentaire rendus, sans identité du relecteur
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [note, commentaire]
+                properties:
+                  note: { type: integer, minimum: 0, maximum: 20 }
+                  commentaire: { type: string }
+        "404": { $ref: "#/components/responses/Erreur" } # NOTE_INCONNUE
+
 components:
   schemas:
     Erreur:
