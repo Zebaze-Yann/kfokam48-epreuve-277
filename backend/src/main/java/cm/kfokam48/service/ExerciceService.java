@@ -12,6 +12,8 @@ import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
 import java.time.OffsetDateTime;
 import java.util.Objects;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class ExerciceService {
@@ -61,7 +63,23 @@ public class ExerciceService {
         }
 
         Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        assignerRelecteur(id, request.sessionId(), request.etudiantId());
         return new ExerciceDtos.DepotResponse(id, STATUT_EN_ATTENTE);
+    }
+
+    private void assignerRelecteur(Long exerciceId, Long sessionId, Long auteurId) {
+        List<Long> candidats = jdbcTemplate.queryForList(
+                "SELECT etudiant_id FROM presences "
+                        + "WHERE session_id = ? AND etudiant_id <> ?",
+                Long.class, sessionId, auteurId);
+        if (candidats.isEmpty()) {
+            return;
+        }
+
+        Long relecteurId = candidats.get(ThreadLocalRandom.current().nextInt(candidats.size()));
+        jdbcTemplate.update(
+                "INSERT INTO relectures(exercice_id, relecteur_id) VALUES (?, ?)",
+                exerciceId, relecteurId);
     }
 
     private void verifierLien(String lien) {
