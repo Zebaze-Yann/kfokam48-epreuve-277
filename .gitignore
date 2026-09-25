@@ -1,0 +1,22 @@
+# Java / Maven
+target/
+.mvn/timing.properties
+
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+dist/
+coverage/
+
+# Local environment and IDE files
+.env
+.env.*
+!.env.example
+.idea/
+*.iml
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
