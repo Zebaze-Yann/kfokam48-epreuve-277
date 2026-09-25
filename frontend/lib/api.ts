@@ -104,3 +104,23 @@ export function deposerExercice(
     body: JSON.stringify(request),
   });
 }
+
+export interface NoteRequest {
+  note: number;
+  commentaire: string;
+}
+
+export interface NoteResponse {
+  note: number;
+  commentaire: string;
+}
+
+export function rendreNote(
+  relectureId: number,
+  request: NoteRequest
+): Promise<NoteResponse> {
+  return appelerApi<NoteResponse>(`/api/relectures/${relectureId}`, {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
+}
