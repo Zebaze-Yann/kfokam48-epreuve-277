@@ -23,3 +23,17 @@ exigence (EFx) et règle (RGx) face à la question Qx correspondante, en
 comparant les codes HTTP des diagrammes à ceux du contrat, et en validant la
 syntaxe du contrat d'API avec un parseur YAML avant de l'intégrer au dépôt —
 c'est cette vérification qui a permis de détecter la duplication de chemin.
+
+## Étape 2 — Construction de la v0.1
+
+Fait : tickets Must #1 à #6 implémentés sur des branches dédiées ; sessions,
+présences, expiration du code, dépôt d'exercice, assignation et notation d'une
+relecture sont couverts par des endpoints et des tests d'intégration ciblés.
+Le contrat documente maintenant le corps de réponse de `POST /api/relectures/{id}`.
+Bloqué : les tests Maven n'ont pas pu être exécutés, car Maven n'est pas installé
+dans l'environnement de travail (`mvn: not found`). La validation statique Java
+et `git diff --check` ont été exécutés.
+IA : l'IA a proposé les services, contrôleurs et tests ; j'ai vérifié chaque
+réponse contre `api/contrat.yaml`, notamment les statuts `200`, `400`, `403`,
+`409` et la note entière entre 0 et 20. Le journal est mis à jour dans cette
+branche avant son commit.
